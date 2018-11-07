@@ -1,0 +1,38 @@
+#!/bin/bash
+
+  function help()
+  {
+     echo "XZ-Java Usage:"
+     echo
+     echo "  -d <file>:"
+     echo "      Decompress <file>"
+     echo
+     echo "  -z <file>:"
+     echo "      Compress <file>"
+     echo
+     echo "  -h, --help:"
+     echo "      Shows this help"
+     echo
+  }
+
+  case x"$1" in
+    x-d|x--d|x--de|x--dec|x--deco|x--decom|x--decomp|x--decompr|x--decompre|x--decompres|x--decompress)
+        shift
+	java -jar @PREFIX@/share/jdk8/lib/XZDecDemo.jar "$@"
+	exit 0;;
+    x-z|x--c|x--co|x--com|x--comp|x--compr|x--compre|x--compres|x--compress)
+        shift
+	for file in "$@"; do
+	  java -jar @PREFIX@/share/jdk8/lib/XZEncDemo.jar < ${file} > ${file}.xz
+	done
+	exit 0;;
+    x-h|x--he|x--hel|x--help)
+        help
+	exit 0;;
+    x)
+        help
+        exit 1;;
+    x*)
+        echo "Unknown option '$1'"
+        exit 1;;
+  esac
