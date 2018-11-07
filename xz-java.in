@@ -4,10 +4,10 @@
   {
      echo "XZ-Java Usage:"
      echo
-     echo "  -d <file>:"
+     echo "  -d, --decompress <file>:"
      echo "      Decompress <file>"
      echo
-     echo "  -z <file>:"
+     echo "  -z, --compress <file>:"
      echo "      Compress <file>"
      echo
      echo "  -h, --help:"
