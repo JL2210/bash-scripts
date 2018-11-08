@@ -7,6 +7,9 @@
      echo "  -d, --decompress <file>:"
      echo "      Decompress <file>"
      echo
+     echo "  -c, --stdout <file>:"
+     echo "      Decompress <file> to standard output"
+     echo
      echo "  -z, --compress <file>:"
      echo "      Compress <file>"
      echo
@@ -18,7 +21,9 @@
   case x"$1" in
     x-d|x--d|x--de|x--dec|x--deco|x--decom|x--decomp|x--decompr|x--decompre|x--decompres|x--decompress)
         shift
-	java -jar @PREFIX@/share/jdk8/lib/XZDecDemo.jar "$@"
+	for file in `echo "$@" | sed 's,\.xz,,g'`; do
+	  java -jar @PREFIX@/share/jdk8/lib/XZDecDemo.jar < ${file}.xz > ${file}
+        done
 	exit 0;;
     x-z|x--c|x--co|x--com|x--comp|x--compr|x--compre|x--compres|x--compress)
         shift
@@ -26,6 +31,10 @@
 	  java -jar @PREFIX@/share/jdk8/lib/XZEncDemo.jar < ${file} > ${file}.xz
 	done
 	exit 0;;
+    x-c|x--s|x--st|x--std|x--stdo|x--stdou|x--stdout)
+        shift
+        java -jar @PREFIX@/share/jdk8/lib/XZDecDemo.jar "$@"
+        exit 0;;
     x-h|x--he|x--hel|x--help)
         help
 	exit 0;;
